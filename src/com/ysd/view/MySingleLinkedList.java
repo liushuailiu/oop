@@ -1,10 +1,14 @@
 package com.ysd.view;
 
+
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+
 /**
  * Created by FanLiYang on 2017/4/6.
  * JAVA单链表的实现
  */
-public class MyIterator<T> {
+public class MySingleLinkedList<T> implements Iterable {
 
     // 链表的头
     private Node head ;
@@ -13,15 +17,20 @@ public class MyIterator<T> {
     private int size ;
 
     public void remove(int index){
-        if(index==0){
+        Node node = getNode(index);
+        if(node==head){
             head = head.next;
         }else{
-            Node last = getNode(index);
-            Node next = getNode(index);
-            last.next = next ;
+            Node last = getNode(index-1);
+            if(node.next!=null)
+                last.next = node.next ;
+            else
+                last.next = null ;
         }
         this.size -- ;
     }
+
+
 
     //往链表中添加节点,默认为最后
     public void add(T any){
@@ -54,7 +63,7 @@ public class MyIterator<T> {
     }
 
     private Node getNode(int index){
-        if(index<0||index>size())
+        if(index<0||index>size()-1)
             throw new IndexOutOfBoundsException();
         Node node = head ;
         for (int i = 0; i < index; i++) {
@@ -66,6 +75,40 @@ public class MyIterator<T> {
     public int size(){
         return this.size;
     }
+
+    @Override
+    public Iterator iterator() {
+        return null;
+    }
+
+    private class ArrayListIterator implements Iterator {
+
+        private Node index = head ;
+        private boolean okToRemove = false ;
+
+        @Override
+        public boolean hasNext() {
+            return index != current ;
+        }
+
+        @Override
+        public Object next() {
+            if(!hasNext())
+                throw new NoSuchElementException();
+            T t = index.data ;
+            index = index.next ;
+            okToRemove = true ;
+            return t ;
+        }
+
+        @Override
+        public void remove() {
+            if(!okToRemove)
+                throw new IllegalStateException();
+//            MySingleLinkedList.this.remove();
+        }
+    }
+
     //节点类
     private class Node{
         private Node next ; //后缀节点
