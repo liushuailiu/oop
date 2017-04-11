@@ -2,9 +2,10 @@ package com.ysd.view;
 
 /**
  * Created by FanLiYang on 2017/3/31.
+ * JAVA实现双链表
  */
 
-public class MyList<T> {
+public class MyDoubleLinkedList<T> {
      // 链表的开端
      private Node<T> beginMarker ;
      // 链表的结束
@@ -40,7 +41,7 @@ public class MyList<T> {
         return this.size;
     }
 
-    public MyList() {
+    public MyDoubleLinkedList() {
         doClear();
     }
     // 初始化链表
