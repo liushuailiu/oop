@@ -1,14 +1,23 @@
 package com.ysd.view;
 
-
-import java.util.Iterator;
-import java.util.NoSuchElementException;
-
 /**
  * Created by FanLiYang on 2017/4/6.
  * JAVA单链表的实现
  */
-public class MySingleLinkedList<T> implements Iterable {
+public class MySingleLinkedList<T>{
+
+    public MySingleLinkedList(){
+        doClear();
+    }
+
+    private void doClear() {
+        this.size = 0;
+        head = current = null ;
+    }
+
+    public void clear(){
+        doClear();
+    }
 
     // 链表的头
     private Node head ;
@@ -18,9 +27,9 @@ public class MySingleLinkedList<T> implements Iterable {
 
     public void remove(int index){
         Node node = getNode(index);
-        if(node==head){
+        if(node==head)
             head = head.next;
-        }else{
+        else{
             Node last = getNode(index-1);
             if(node.next!=null)
                 last.next = node.next ;
@@ -29,6 +38,7 @@ public class MySingleLinkedList<T> implements Iterable {
         }
         this.size -- ;
     }
+
 
 
 
@@ -76,41 +86,9 @@ public class MySingleLinkedList<T> implements Iterable {
         return this.size;
     }
 
-    @Override
-    public Iterator iterator() {
-        return null;
-    }
-
-    private class ArrayListIterator implements Iterator {
-
-        private Node index = head ;
-        private boolean okToRemove = false ;
-
-        @Override
-        public boolean hasNext() {
-            return index != current ;
-        }
-
-        @Override
-        public Object next() {
-            if(!hasNext())
-                throw new NoSuchElementException();
-            T t = index.data ;
-            index = index.next ;
-            okToRemove = true ;
-            return t ;
-        }
-
-        @Override
-        public void remove() {
-            if(!okToRemove)
-                throw new IllegalStateException();
-//            MySingleLinkedList.this.remove();
-        }
-    }
-
     //节点类
     private class Node{
+
         private Node next ; //后缀节点
         private T data ;    //数据
 
