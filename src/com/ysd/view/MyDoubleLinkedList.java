@@ -1,5 +1,9 @@
 package com.ysd.view;
 
+import java.util.ConcurrentModificationException;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+
 /**
  * Created by FanLiYang on 2017/3/31.
  * JAVA实现双链表
@@ -12,10 +16,7 @@ public class MyDoubleLinkedList<T> {
      private Node<T> endMarker ;
      // 链表的长度
      private int size ;
-
-     public void clear(){
-         doClear();
-     }
+     private int modCount = 0 ;
 
      public void set(int index , T t){
          Node<T> node = getNode(index);
@@ -23,22 +24,30 @@ public class MyDoubleLinkedList<T> {
      }
 
     /**
-     * 根据下标删除节点
-     * @param index
+     * 删除节点
+     * @param p
      */
-     public void remove(int index){
-         // 拿到要删除的节点
-         Node<T> node = getNode(index);
+     public void remove(Node<T> p){
+
          // 2-3-4 , 将3删除,
          // 3的上一个(2)的下一个为4
-         node.prev.next = node.next ;
+         p.prev.next = p.next ;
          // 3的下一个(4)的上一个为 2
-         node.next.prev = node.prev ;
+         p.next.prev = p.prev ;
          this.size -- ;
+         modCount ++ ;
+     }
+
+     public void remove(int index){
+         remove(getNode(index));
      }
 
     public int size(){
         return this.size;
+    }
+
+    public void clear(){
+        doClear();
     }
 
     public MyDoubleLinkedList() {
@@ -54,6 +63,7 @@ public class MyDoubleLinkedList<T> {
         beginMarker.next = endMarker ;
         // 初始化长度为0
         this.size = 0 ;
+        modCount ++ ;
     }
 
     public void add(T t ){
@@ -79,6 +89,7 @@ public class MyDoubleLinkedList<T> {
         // 3的上一个是5
         node.prev = newNode ;
         this.size ++ ;
+        modCount ++ ;
     }
     public T get(int index){
         return getNode(index).data ;
@@ -125,6 +136,40 @@ public class MyDoubleLinkedList<T> {
              this.prev = prev;
              this.next = next;
              this.data = data;
+         }
+     }
+     private class LinkedListIterator implements Iterator<T>{
+
+        private Node<T> current = beginMarker.next ;
+        private int expectedModCount = modCount ;
+        private boolean okToRemove = false ;
+
+         @Override
+         public boolean hasNext() {
+             return current != endMarker ;
+         }
+
+         @Override
+         public T next() {
+             if(modCount != expectedModCount)
+                 throw new ConcurrentModificationException();
+             if(!hasNext())
+                 throw new NoSuchElementException();
+             T nextItem = current.data ;
+             current = current.next ;
+             okToRemove = true ;
+             return nextItem ;
+         }
+
+         @Override
+         public void remove() {
+            if(modCount != expectedModCount)
+                throw new ConcurrentModificationException();
+            if(!okToRemove)
+                throw new IllegalStateException();
+            MyDoubleLinkedList.this.remove(current.prev);
+            expectedModCount ++ ;
+            okToRemove = false ;
          }
      }
 }
