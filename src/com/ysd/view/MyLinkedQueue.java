@@ -13,7 +13,6 @@ public class MyLinkedQueue<T> {
     public void clear(){
         header = tail = null ;
     }
-
     public MyLinkedQueue() {
         clear();
     }
