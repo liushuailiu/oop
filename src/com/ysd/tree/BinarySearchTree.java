@@ -20,6 +20,21 @@ public class BinarySearchTree<T extends Comparable<? super T>>{
         return this.root == null ;
     }
 
+    // 将节点插入到二叉树中
+
+    private BinaryNode<T> insert(T x,BinaryNode<T> t){
+        if(t==null)
+            return new BinaryNode<T>(x,null,null);
+        int compareResult = x.compareTo(t.element);
+        if(compareResult<0)
+            t.left = insert(x,t.left);
+        else if (compareResult>0)
+            t.right = insert(x,t.right);
+        else ;
+        return t ;
+    }
+
+
     //判断二叉树 t 中是否含有节点 x
 
     private boolean contains(T x , BinaryNode<T> t){
