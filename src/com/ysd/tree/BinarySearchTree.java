@@ -25,8 +25,32 @@ public class BinarySearchTree<T extends Comparable<? super T>>{
     private boolean contains(T x , BinaryNode<T> t){
         if (t==null)
             return false;
-       return false ;
+        int compareResult = x.compareTo(t.element);
+        if(compareResult<0)
+            return contains(x,t.left);
+        else if (compareResult>0)
+            return contains(x,t.right);
+        else
+            return true ;
     }
+
+    // 二叉树查询最小值的递归实现
+    private BinaryNode<T> findMin(BinaryNode<T> t){
+        if(t==null)
+            return null;
+        else if (t.left == null)
+            return t ;
+        return findMin(t.left);
+    }
+
+    //  二叉树查询最大值的循环实现
+    private BinaryNode<T> findMax(BinaryNode<T> t){
+        if( t!=null )
+            while ( t.right != null )
+                t = t.right ;
+        return t ;
+    }
+
 
     private static class BinaryNode<T>{
 
