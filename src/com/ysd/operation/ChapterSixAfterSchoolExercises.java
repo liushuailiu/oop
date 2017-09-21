@@ -5,8 +5,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * 第六章 IO操作 课后习题
  * @author fly
+ * @create 2017-09-21 15:51
+ * @desc JAVA--OOP 第六章上机任务
  */
 public class ChapterSixAfterSchoolExercises {
 
