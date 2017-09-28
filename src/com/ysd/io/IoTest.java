@@ -27,6 +27,9 @@ public class IoTest {
 
 	public static void main(String[] args) throws Exception {
 
+		FileUtils.copyPathByBufferedStream("C:\\Users\\fly\\Pictures\\Saved Pictures\\巴塞罗那.jpg",
+				"D:\\java-oop\\第六章\\IO操作\\新的图片.jpg");
+
 		//createAndDeleteDirecctory();
 
 		//selectFile(path);
@@ -53,7 +56,7 @@ public class IoTest {
 
 		//testPrintWrite();
 
-		copyPictures();
+		//copyPictures();
 	}
 
 	//图片复制
