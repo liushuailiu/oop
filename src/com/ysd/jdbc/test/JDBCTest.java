@@ -16,6 +16,7 @@ import java.util.List;
  **/
 public class JDBCTest {
 
+	//测试
 	@Test
 	public void testQuery(){
 		String sql = "select * from Student";
