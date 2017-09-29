@@ -14,6 +14,31 @@ public class DBManger {
 	private static final String userName="sa";
 	private static final String password="123@qwe";
 
+	public static void closeAll(Connection connection,Statement statement ,ResultSet resultSet){
+
+		if(resultSet!=null){
+			try {
+				resultSet.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		if(statement!=null){
+			try {
+				statement.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		if(connection!=null){
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
 	/**
 	 * 执行数据库修改语句
 	 * @param sql  修改语句

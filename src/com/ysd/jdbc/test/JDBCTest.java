@@ -16,11 +16,28 @@ import java.util.List;
  **/
 public class JDBCTest {
 
+	//获取自增主键
+	@Test
+	public void testKey(){
+		String sql = "insert into Student values(?,?)";
+		Integer key = JDBCUtils.getGeneratedKey(sql,"张三","123456");
+		System.out.println(key);
+	}
+
+	//批处理测试
+	@Test
+	public void testBatch(){
+		Object[][] objects = {{"林冲","123"},{"武松","321"},{"鲁智深","456"}};
+		String sql = "insert into Student values(?,?)";
+		int[] i = JDBCUtils.batch(sql,objects);
+		System.out.println(i.length);
+	}
 	//测试
 	@Test
 	public void testQuery(){
-		String sql = "select * from Student";
-		List<User> list = JDBCUtils.query(sql,User.class);
+		String sql = "select * from Student where id = ? ";
+		String[] strings = {"1"};
+		List<User> list = JDBCUtils.query(sql,User.class,strings);
 		for (User u:list) {
 			System.out.println(u.toString());
 		}

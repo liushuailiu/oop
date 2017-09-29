@@ -16,6 +16,8 @@ public class QueryDataResult {
 	private PreparedStatement preparedStatement;
 	private ResultSet resultSet;
 
+
+
 	//初始化返回结果集
 	public QueryDataResult(Connection connection, PreparedStatement preparedStatement, ResultSet resultSet) {
 		this.connection = connection;
