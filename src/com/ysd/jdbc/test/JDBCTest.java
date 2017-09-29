@@ -20,7 +20,8 @@ public class JDBCTest {
 	@Test
 	public void testKey(){
 		String sql = "insert into Student values(?,?)";
-		Integer key = JDBCUtils.getGeneratedKey(sql,"张三","123456");
+		String[] strings = {"张三","123456"};
+		Integer key = JDBCUtils.getGeneratedKey(sql,strings);
 		System.out.println(key);
 	}
 
