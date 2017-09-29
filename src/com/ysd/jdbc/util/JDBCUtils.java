@@ -5,7 +5,6 @@ import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
-import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.Nullable;
 
 import java.sql.*;
@@ -55,7 +54,7 @@ public class JDBCUtils {
 	 */
 	public static int[] batch(String sql,Object[][] params){
 		Connection connection = DBManger.getConnection();
-		QueryRunner queryRunner = new QueryRunner();
+		QueryRunner queryRunner = new QueryRunner(true);
 		int[] i = null;
 		try {
 			i = queryRunner.batch(connection,sql, params);
@@ -76,7 +75,7 @@ public class JDBCUtils {
 	 */
 	public static boolean update(String sql,Object... objects){
 		Connection connection = DBManger.getConnection();
-		QueryRunner queryRunner = new QueryRunner();
+		QueryRunner queryRunner = new QueryRunner(true);
 		boolean flag = false;
 		try {
 			int result = queryRunner.update(connection,sql,objects);
@@ -102,7 +101,7 @@ public class JDBCUtils {
 	 */
 	public static <T> T get(String sql,Class clazz,Object... objects){
 		Connection connection = DBManger.getConnection();
-		QueryRunner queryRunner = new QueryRunner();
+		QueryRunner queryRunner = new QueryRunner(true);
 		Object bean = null;
 		try {
 			bean = queryRunner.query(connection,sql,new BeanHandler<Object>(clazz),objects);
@@ -127,7 +126,7 @@ public class JDBCUtils {
 	@Nullable
 	public static <E> List<E> query(String sql, Class clazz,Object... objects){
 		Connection connection = DBManger.getConnection();
-		QueryRunner queryRunner = new QueryRunner();
+		QueryRunner queryRunner = new QueryRunner(true);
 		List<Object> list = null;
 		try {
 			list = queryRunner.query(connection,sql,new BeanListHandler<Object>(clazz),objects);
@@ -149,7 +148,7 @@ public class JDBCUtils {
 	 */
 	public static Object getColumn(String sql,Integer index,Object... objects){
 		Connection connection = DBManger.getConnection();
-		QueryRunner queryRunner = new QueryRunner();
+		QueryRunner queryRunner = new QueryRunner(true);
 		Object bean = null;
 		try {
 			bean = queryRunner.query(connection,sql,new ScalarHandler(index),objects);
