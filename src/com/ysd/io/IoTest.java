@@ -105,6 +105,7 @@ public class IoTest {
 
 
 	//printWrite测试
+	//testGit
 
 	public static void testPrintWrite() throws IOException {
 
