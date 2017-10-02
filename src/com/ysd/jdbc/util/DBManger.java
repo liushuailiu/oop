@@ -10,7 +10,7 @@ import java.sql.*;
 public class DBManger {
 
 	private static final String driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
-	private static final String url = "jdbc:sqlserver://127.0.0.1:1433;DatabaseName=SchoolDB";
+	private static final String url = "jdbc:sqlserver://127.0.0.1:1433;DatabaseName=BBS";
 	private static final String userName="sa";
 	private static final String password="123@qwe";
 
