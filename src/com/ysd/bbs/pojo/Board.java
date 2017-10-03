@@ -35,9 +35,6 @@ public class Board {
 
 	@Override
 	public String toString() {
-		return "Board{" +
-				"id=" + id +
-				", name='" + name + '\'' +
-				'}';
+		return this.id + "\t" + this.name ;
 	}
 }
